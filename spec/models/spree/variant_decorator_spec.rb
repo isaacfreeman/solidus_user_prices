@@ -1,14 +1,21 @@
 require "spec_helper"
 
 describe Spree::Variant do
-
   subject(:variant) { FactoryGirl.create(:variant, price: 100) }
-  let(:user) { FactoryGirl.create :user}
-  let(:role) { FactoryGirl.create :role}
-  let(:individual_user_price) {Spree::UserPrice.new(variant: variant, user: user, amount: 70)}
-  let(:cheaper_individual_user_price) {Spree::UserPrice.new(variant: variant, user: user, amount: 65)}
-  let(:role_based_user_price) {Spree::UserPrice.new(variant: variant, role: role, amount: 60)}
-  let(:cheapest_role_based_user_price) {Spree::UserPrice.new(variant: variant, role: role, amount: 55)}
+  let(:user) { FactoryGirl.create :user }
+  let(:role) { FactoryGirl.create :role }
+  let(:individual_user_price) do
+    Spree::UserPrice.new(variant: variant, user: user, amount: 70)
+  end
+  let(:cheaper_individual_user_price) do
+    Spree::UserPrice.new(variant: variant, user: user, amount: 65)
+  end
+  let(:role_based_user_price) do
+    Spree::UserPrice.new(variant: variant, role: role, amount: 60)
+  end
+  let(:cheapest_role_based_user_price) do
+    Spree::UserPrice.new(variant: variant, role: role, amount: 55)
+  end
 
   describe "#user_price" do
     context "with no user_prices" do
@@ -42,40 +49,49 @@ describe Spree::Variant do
         variant.user_prices << cheapest_role_based_user_price
       end
       it "returns the lowest user_price" do
-        expect(variant.user_price(user)).to eq cheapest_role_based_user_price.amount
+        expect(
+          variant.user_price(user)
+        ).to eq cheapest_role_based_user_price.amount
       end
     end
   end
 
   describe '#user_price_in' do
-    let(:currency) { 'EUR' }
+    let(:currency) { "EUR" }
     subject { variant.user_price_in(currency, user).display_amount }
 
     context "when user is not specified" do
       let(:user) { nil }
-      it "returns normal user_price" do
-        expect(subject.to_s).to eql variant.price_in(currency).display_amount.to_s
+      it "returns normal price" do
+        normal_price = variant.price_in(currency).display_amount.to_s
+        expect(subject.to_s).to eql normal_price
       end
     end
 
     context "when user has no user_prices" do
-      it "returns normal user_price" do
-        expect(subject.to_s).to eql variant.price_in(currency).display_amount.to_s
+      it "returns normal price" do
+        normal_price = variant.price_in(currency).display_amount.to_s
+        expect(subject.to_s).to eql normal_price
       end
     end
 
     context "when user has prices in EUR" do
       before do
-        variant.user_prices << Spree::UserPrice.new(variant: variant, currency: "EUR", user: user, amount: 33.33)
-        variant.user_prices << Spree::UserPrice.new(variant: variant, currency: "EUR", user: user, amount: 23.33)
+        variant.user_prices << Spree::UserPrice.new(
+          variant: variant, currency: "EUR", user: user, amount: 33.33
+        )
+        variant.user_prices << Spree::UserPrice.new(
+          variant: variant, currency: "EUR", user: user, amount: 23.33
+        )
       end
       it "returns the lowest value in EUR" do
         expect(subject.to_s).to eql "€23.33"
       end
       it "returns the normal price in CAD" do
-        expect(variant.user_price_in("CAD", user).display_amount.to_s).to eql variant.price_in("CAD").display_amount.to_s
+        cad_normal_price = variant.price_in("CAD").display_amount.to_s
+        cad_user_price = variant.user_price_in("CAD", user).display_amount.to_s
+        expect(cad_user_price).to eql cad_normal_price
       end
     end
   end
-
 end

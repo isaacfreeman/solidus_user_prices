@@ -11,10 +11,10 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/resolve/solidus_user_prices"
   s.license     = "MIT"
   s.summary     = <<-HEREDOC
-Allows prices to be set for an individual user, or for all suers with a given role.
+Allows prices for Solidus variants to be set for an individual user, or for all users with a given role.
                   HEREDOC
   s.description = <<-HEREDOC
-  Allows prices to be set for an individual user, or for all suers with a given role.
+  Allows prices for Solidus variants to be set for an individual user, or for all users with a given role.
                   HEREDOC
 
   s.author      = "Isaac Freeman"
