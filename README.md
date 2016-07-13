@@ -1,6 +1,6 @@
 # SolidusUserPrices
 
-Allow special prices to be set on a variant for an individual user or for all suers with a given role.
+Allow special prices to be set on a variant for an individual user or for all users with a given role.
 
 ## Installation
 
