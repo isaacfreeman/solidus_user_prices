@@ -27,9 +27,9 @@ Allows prices for Solidus variants to be set for an individual user, or for all 
 
   s.has_rdoc = false
 
-  s.add_runtime_dependency "solidus_core", "~> 1.2"
-  s.add_runtime_dependency "solidus_api", "~> 1.2"
-  s.add_runtime_dependency "solidus_backend", "~> 1.2"
+  s.add_runtime_dependency "solidus_core", "~> 1.3"
+  s.add_runtime_dependency "solidus_api", "~> 1.3"
+  s.add_runtime_dependency "solidus_backend", "~> 1.3"
   s.add_runtime_dependency "deface", "~> 1.0"
 
   s.add_development_dependency "byebug", "~> 8.2"
@@ -37,7 +37,7 @@ Allows prices for Solidus variants to be set for an individual user, or for all 
   s.add_development_dependency "coffee-rails", "~> 4.0"
   s.add_development_dependency "database_cleaner", "~> 1.3"
   s.add_development_dependency "factory_girl_rails", "~> 4.6"
-  s.add_development_dependency "ffaker", "~> 1.32"
+  s.add_development_dependency "ffaker", "~> 2.0"
   s.add_development_dependency "poltergeist", "~> 1.5"
   s.add_development_dependency "pry-rails", "~> 0.3"
   s.add_development_dependency "rubocop", "~> 0.37"

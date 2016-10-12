@@ -12,8 +12,7 @@ Spree::LineItem.class_eval do
   # Sets the options on the line item according to the order's currency or
   # one passed in.
   # @param options [Hash] options for this line item
-  # Overridden to use user prices if available for the order's
-  # user
+  # Overridden to use user prices if available for the order's user
   def options=(options = {})
     return unless options.present?
     # We will be deleting from the hash, so leave the caller's copy intact
@@ -22,7 +21,7 @@ Spree::LineItem.class_eval do
     user = opts.delete(:user)
     if currency
       self.currency = currency
-      self.price    = variant.user_price_in(currency, user).amount +
+      self.price    = variant.user_price_for(pricing_options, user).amount +
                       variant.price_modifier_amount_in(currency, opts)
     else
       self.price    = variant.user_price(user) +

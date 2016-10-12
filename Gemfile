@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "solidus", github: "solidusio/solidus", branch: "v1.2"
+gem "solidus", github: "solidusio/solidus", branch: "v1.3"
 
 group :development do
   gem "i18n-tasks"

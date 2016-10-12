@@ -56,21 +56,20 @@ describe Spree::Variant do
     end
   end
 
-  describe '#user_price_in' do
-    let(:currency) { "EUR" }
-    subject { variant.user_price_in(currency, user).display_amount }
+  describe "#user_price_for" do
+    subject { variant.user_price_for(Spree::Variant::PricingOptions.new(currency: "USD"), user) }
 
     context "when user is not specified" do
       let(:user) { nil }
       it "returns normal price" do
-        normal_price = variant.price_in(currency).display_amount.to_s
+        normal_price = variant.price_for(Spree::Variant::PricingOptions.new(currency: "USD")).to_s
         expect(subject.to_s).to eql normal_price
       end
     end
 
     context "when user has no user_prices" do
       it "returns normal price" do
-        normal_price = variant.price_in(currency).display_amount.to_s
+        normal_price = variant.price_for(Spree::Variant::PricingOptions.new(currency: "USD")).to_s
         expect(subject.to_s).to eql normal_price
       end
     end
@@ -85,12 +84,13 @@ describe Spree::Variant do
         )
       end
       it "returns the lowest value in EUR" do
-        expect(subject.to_s).to eql "€23.33"
+        eur_user_price = variant.user_price_for(Spree::Variant::PricingOptions.new(currency: "EUR"), user).display_amount.to_s
+        expect(eur_user_price).to eql "€23.33"
       end
-      it "returns the normal price in CAD" do
-        cad_normal_price = variant.price_in("CAD").display_amount.to_s
-        cad_user_price = variant.user_price_in("CAD", user).display_amount.to_s
-        expect(cad_user_price).to eql cad_normal_price
+      it "returns the normal price in USD" do
+        usd_normal_price = variant.price_for(Spree::Variant::PricingOptions.new(currency: "USD")).to_s
+        usd_user_price = variant.user_price_for(Spree::Variant::PricingOptions.new(currency: "USD"), user).to_s
+        expect(usd_user_price).to eql usd_normal_price
       end
     end
   end

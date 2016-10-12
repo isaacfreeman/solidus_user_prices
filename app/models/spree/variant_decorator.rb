@@ -12,12 +12,12 @@ Spree::Variant.class_eval do
     user_prices.min_by(&:amount).amount
   end
 
-  def user_price_in(currency, user)
-    return price_in(currency) unless user.present?
+  def user_price_for(pricing_options, user = nil)
+    return price_for(pricing_options) unless user.present?
     user_prices = user_prices_for(user).select do |user_price|
-      user_price.currency == currency
+      user_price.currency == pricing_options.currency
     end
-    return price_in(currency) if user_prices.none?
+    return price_for(pricing_options) if user_prices.none?
     user_prices.min_by(&:amount)
   end
 
