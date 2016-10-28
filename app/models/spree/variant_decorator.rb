@@ -30,7 +30,7 @@ Spree::Variant.class_eval do
   def user_prices_for(user)
     user_prices
       .where(user: user)
-      .concat(user_prices.where(role: user.spree_roles))
-      .uniq
+      .or(user_prices.where(role: user.spree_roles))
+      .distinct
   end
 end
