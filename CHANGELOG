@@ -1,3 +1,6 @@
+= Version 0.2.1
+  * Adds Spree::UserPrice#to_d
+
 = Version 0.2.0
   * Solidus 2.0
 
