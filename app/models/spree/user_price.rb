@@ -12,4 +12,8 @@ class Spree::UserPrice < ActiveRecord::Base
   money_methods :amount, :price
 
   delegate :name, to: :role, prefix: true
+
+  def to_d
+    Spree::Money.new(amount, currency: currency).to_d
+  end
 end
