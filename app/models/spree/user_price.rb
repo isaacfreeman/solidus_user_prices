@@ -14,6 +14,10 @@ class Spree::UserPrice < ActiveRecord::Base
   delegate :name, to: :role, prefix: true
 
   def to_d
-    Spree::Money.new(amount, currency: currency).to_d
+    Spree::Money.new(amount, currency: read_attribute(:currency)).to_d
+  end
+
+  def currency
+    Spree::Money.new(amount, currency: read_attribute(:currency)).currency
   end
 end

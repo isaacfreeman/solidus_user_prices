@@ -1,3 +1,6 @@
+= Version 0.2.2
+  * Adds Spree::UserPrice#currency
+
 = Version 0.2.1
   * Adds Spree::UserPrice#to_d
 
