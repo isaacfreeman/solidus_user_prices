@@ -1,4 +1,4 @@
-class CreateSpreeUserPrices < ActiveRecord::Migration
+class CreateSpreeUserPrices < ActiveRecord::Migration[4.2]
   def change
     create_table :spree_user_prices do |t|
       t.references :variant
